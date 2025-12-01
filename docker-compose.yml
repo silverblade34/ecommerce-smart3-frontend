@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  next-app:
+    container_name: next_app_prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5300:3000"
+    env_file:
+      - .env
+    restart: always
