@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://smart.sokso.com
+
+# Sitemaps
+Sitemap: https://smart.sokso.com/sitemap.xml

@@ -1,0 +1,40 @@
+@use "sass:meta";
+/* eslint-disable */
+@import "icomoon/style.css";
+@include meta.load-css("custom-swiper.scss");
+@include meta.load-css("loading.scss");
+@include meta.load-css("globals.scss");
+@include meta.load-css("scroll.scss");
+@include meta.load-css("modal.scss");
+@include meta.load-css("header.scss");
+@include meta.load-css("footer.scss");
+@include meta.load-css("product.scss");
+@include meta.load-css("blog.scss");
+@include meta.load-css("shop.scss");
+@include meta.load-css("faqs.scss");
+@include meta.load-css("cart.scss");
+@include meta.load-css("image.scss");
+@include meta.load-css("compare.scss");
+@include meta.load-css("layout/category-active.scss");
+@include meta.load-css("layout/text-has-line-before.scss");
+@include meta.load-css("layout/collection.scss");
+@include meta.load-css("layout/tab-features.scss");
+@include meta.load-css("layout/banner.scss");
+@include meta.load-css("layout/testimonial.scss");
+@include meta.load-css("layout/instagram.scss");
+@include meta.load-css("layout/benefit.scss");
+@include meta.load-css("layout/newsletter.scss");
+@include meta.load-css("layout/featured-product.scss");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@include meta.load-css("loader");
+
+.tracking_content {
+  @apply flex flex-row  items-start px-6 py-5 text-sm font-medium lg:flex-col lg:items-center;
+
+  .tracking_content_title {
+    @apply ml-4 mt-0.5 flex min-w-0 flex-col items-start text-center lg:ml-0 lg:items-center;
+  }
+}

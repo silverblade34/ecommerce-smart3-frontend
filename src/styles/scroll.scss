@@ -1,0 +1,22 @@
+html {
+  overflow-y: scroll; /* Asegura que el espacio para el scrollbar esté siempre presente */
+}
+
+* {
+  scrollbar-width: thin; /* Para navegadores compatibles con scrollbar-width */
+  scrollbar-color: var(--secondary2) transparent; /* Colores personalizados para Firefox */
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  background: var(--line);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary2);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--line);
+}

@@ -1,0 +1,27 @@
+// git mergeimport { NextResponse } from 'next/server'
+// import type { NextRequest } from 'next/server'
+
+// export function middleware(request: NextRequest) {
+//   const { nextUrl: url } = request
+
+//   // Permitir acceso solo a estas rutas durante mantenimiento
+//   const allowedPaths = [
+//     '/mantenimiento',       // Página de mantenimiento
+//     '/_next',               // Archivos estáticos de Next.js
+//     '/favicon.ico'          // Ícono del sitio
+//   ]
+
+//   const isAllowed = allowedPaths.some(path => url.pathname.startsWith(path))
+
+//   if (!isAllowed) {
+//     url.pathname = '/mantenimiento'
+//     return NextResponse.redirect(url)
+//   }
+
+//   return NextResponse.next()
+// }
+
+// // Se ejecuta para todas las rutas excepto API, imágenes y estáticos
+// export const config = {
+//   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+// }

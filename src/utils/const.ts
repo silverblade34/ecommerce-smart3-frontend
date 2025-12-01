@@ -1,0 +1,3 @@
+const LIMIT_PRODUCT_CART = 10;
+
+export { LIMIT_PRODUCT_CART };

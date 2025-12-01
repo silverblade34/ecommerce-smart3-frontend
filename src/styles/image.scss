@@ -1,0 +1,29 @@
+/* styles.css */
+
+/* Estilo del contenedor de la lupa */
+.zoom-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estilo del recuadro de lupa */
+.zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  width: 100px;
+  height: 100px;
+  visibility: hidden; /* Oculto por defecto */
+}
+
+/* Estilo de la imagen ampliada en el recuadro */
+.zoom-result {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  width: 300px; /* Ajusta el tamaño del recuadro ampliado */
+  height: 300px; /* Ajusta el tamaño del recuadro ampliado */
+  top: 0;
+  left: 110%; /* Posición al lado derecho de la imagen */
+  background-repeat: no-repeat;
+  background-size: 200% 200%; /* Ajusta el nivel de zoom */
+  display: none; /* Oculto por defecto */
+}

@@ -1,0 +1,68 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // ============================================
+  // RUTA RAÍZ: Servir cleanup.html estático
+  // ============================================
+  if (pathname === '/') {
+    // Reescribir la ruta raíz para servir el HTML de limpieza
+    const url = request.nextUrl.clone();
+    url.pathname = '/cleanup.html';
+
+    const response = NextResponse.rewrite(url);
+
+    // Headers ULTRA-AGRESIVOS para la raíz
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    response.headers.set('Surrogate-Control', 'no-store');
+
+    // Clear-Site-Data para limpiar TODO (cache, cookies, storage, etc.)
+    response.headers.set('Clear-Site-Data', '"cache", "storage"');
+
+    // Service-Worker-Allowed para permitir desregistrar SWs desde cualquier scope
+    response.headers.set('Service-Worker-Allowed', '/');
+
+    // Headers adicionales para romper caches agresivas
+    response.headers.set('X-Accel-Expires', '0');
+    response.headers.set('Vary', '*');
+
+    return response;
+  }
+
+  // ============================================
+  // SERVICE WORKER: Headers especiales
+  // ============================================
+  if (pathname === '/sw.js' || pathname === '/service-worker.js') {
+    const response = NextResponse.next();
+
+    // Cache muy corto para SWs (24 horas max recomendado)
+    response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+    response.headers.set('Service-Worker-Allowed', '/');
+
+    return response;
+  }
+
+  // ============================================
+  // RESTO DE PÁGINAS: Headers anti-cache estándar
+  // ============================================
+  const response = NextResponse.next();
+
+  response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+  response.headers.set('Pragma', 'no-cache');
+  response.headers.set('Expires', '0');
+
+  return response;
+}
+
+export const config = {
+  matcher: [
+    '/',
+    '/sw.js',
+    '/service-worker.js',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
+};

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sin Conexión - Sokso Smart</title>
+  <meta name="theme-color" content="#8331A7">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #8331A7 0%, #5a2173 50%, #2D2A26 100%);
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated background circles */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .bg-circle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .bg-circle:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      bottom: -50px;
+      right: -50px;
+      animation-delay: 3s;
+    }
+
+    .bg-circle:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      top: 50%;
+      right: 10%;
+      animation-delay: 6s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(30px, -30px) scale(1.1);
+      }
+      66% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 48px 32px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .icon-container {
+      margin-bottom: 24px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .wifi-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    /* WiFi icon animation */
+    .wifi-slash {
+      position: absolute;
+      width: 4px;
+      height: 140px;
+      background: #DB4444;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      border-radius: 2px;
+      box-shadow: 0 0 20px rgba(219, 68, 68, 0.4);
+    }
+
+    .wifi-arc {
+      position: absolute;
+      border: 4px solid;
+      border-radius: 50%;
+      border-color: #8331A7 #8331A7 transparent transparent;
+      opacity: 0.3;
+    }
+
+    .wifi-arc:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      top: 10px;
+      left: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    .wifi-arc:nth-child(2) {
+      width: 70px;
+      height: 70px;
+      top: 25px;
+      left: 25px;
+      animation: pulse 2s infinite 0.3s;
+    }
+
+    .wifi-arc:nth-child(3) {
+      width: 40px;
+      height: 40px;
+      top: 40px;
+      left: 40px;
+      animation: pulse 2s infinite 0.6s;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+      }
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #2D2A26;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .info-box {
+      background: #f8f9fa;
+      border-left: 4px solid #8331A7;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .info-box h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2D2A26;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-box li {
+      font-size: 14px;
+      color: #666;
+      padding: 6px 0;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .info-box li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #3DAB25;
+      font-weight: bold;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #8331A7;
+      color: white;
+      box-shadow: 0 4px 12px rgba(131, 49, 167, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #6b2889;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(131, 49, 167, 0.4);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #8331A7;
+      border: 2px solid #8331A7;
+    }
+
+    .btn-secondary:hover {
+      background: #f8f4fb;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fee;
+      color: #DB4444;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #DB4444;
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .footer {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 32px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .wifi-icon {
+        width: 100px;
+        height: 100px;
+      }
+
+      .wifi-arc:nth-child(1) {
+        width: 80px;
+        height: 80px;
+        top: 10px;
+        left: 10px;
+      }
+
+      .wifi-arc:nth-child(2) {
+        width: 55px;
+        height: 55px;
+        top: 22px;
+        left: 22px;
+      }
+
+      .wifi-arc:nth-child(3) {
+        width: 30px;
+        height: 30px;
+        top: 35px;
+        left: 35px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Icon SVG styling */
+    .icon-svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated background circles -->
+  <div class="bg-circle"></div>
+  <div class="bg-circle"></div>
+  <div class="bg-circle"></div>
+
+  <div class="container">
+    <!-- Status indicator -->
+    <div class="status-indicator">
+      <span class="status-dot"></span>
+      Sin conexión a internet
+    </div>
+
+    <!-- WiFi icon with animation -->
+    <div class="icon-container">
+      <div class="wifi-icon">
+        <div class="wifi-arc"></div>
+        <div class="wifi-arc"></div>
+        <div class="wifi-arc"></div>
+        <div class="wifi-slash"></div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <h1>Estás desconectado</h1>
+    <p class="subtitle">
+      No pudimos cargar esta página porque no hay conexión a internet.
+      Verifica tu red e inténtalo nuevamente.
+    </p>
+
+    <!-- Info box -->
+    <div class="info-box">
+      <h3>
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        ¿Qué puedes hacer mientras estás offline?
+      </h3>
+      <ul>
+        <li>Ver páginas y productos que ya visitaste</li>
+        <li>Revisar tu carrito de compras guardado</li>
+        <li>Explorar catálogos previamente cargados</li>
+        <li>Ver imágenes de productos en caché</li>
+      </ul>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="window.location.reload()">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="23 4 23 10 17 10"/>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        </svg>
+        Reintentar
+      </button>
+      <a href="/articulos" class="btn btn-secondary">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Ir al inicio
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Esta página funciona offline gracias a la tecnología PWA</p>
+    </div>
+  </div>
+
+  <script>
+    // Auto-retry when connection is restored
+    window.addEventListener('online', () => {
+      console.log('[Offline Page] Conexión restaurada, recargando...');
+
+      // Show a brief message before reloading
+      const container = document.querySelector('.container');
+      const statusIndicator = document.querySelector('.status-indicator');
+
+      statusIndicator.innerHTML = `
+        <span class="status-dot" style="background: #3DAB25; animation: none;"></span>
+        Conexión restaurada, recargando...
+      `;
+      statusIndicator.style.background = '#e8f5e9';
+      statusIndicator.style.color = '#3DAB25';
+
+      // Reload after 1 second
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    });
+
+    // Monitor connection status
+    window.addEventListener('offline', () => {
+      console.log('[Offline Page] Conexión perdida');
+    });
+
+    // Log page load
+    console.log('[Offline Page] Página offline cargada');
+    console.log('[Offline Page] Estado de conexión:', navigator.onLine ? 'Online' : 'Offline');
+  </script>
+</body>
+</html>
