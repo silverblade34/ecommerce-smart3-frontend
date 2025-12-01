@@ -150,7 +150,7 @@ export async function fetchData() {
   const storyblokApi = getStoryblokApi();
   
   // Determinar la versión basado en el ambiente
-  const version = process.env.VERCEL_ENV === 'production' 
+  const version = process.env.STORYBLOK_VERSION === 'production' 
     ? 'published' 
     : 'draft';
   
