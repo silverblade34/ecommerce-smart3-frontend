@@ -140,7 +140,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    dynamicIO: true, // Permite uso dinámico de headers
     serverActions: {
       bodySizeLimit: '80mb',
     },
